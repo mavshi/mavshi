@@ -1,0 +1,90 @@
+14 Create an application that allows the user to enter a number in the textbox named „getnum‟. Check whether the number in the textbox „getnum‟ is palindrome or not. Print the message accordingly in the label control named lbldisplay when the user clicks on the button „check‟. 
+
+Activity_main.xml
+
+
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context=".MainActivity">
+<EditText
+android:id="@+id/string"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:ems="10"
+android:inputType="textPersonName"
+android:minHeight="48dp"
+android:hint="Enter the String"
+app:layout_constraintBottom_toBottomOf="parent"
+app:layout_constraintEnd_toEndOf="parent"
+app:layout_constraintHorizontal_bias="0.497"
+app:layout_constraintStart_toStartOf="parent"
+app:layout_constraintTop_toTopOf="parent"
+app:layout_constraintVertical_bias="0.192" />
+<Button
+android:id="@+id/button"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:text="Check Palindrome"
+app:layout_constraintStart_toStartOf="@+id/string"
+app:layout_constraintEnd_toEndOf="@+id/string"
+app:layout_constraintTop_toBottomOf="@+id/string"
+android:layout_marginTop="30dp"/>
+<TextView
+android:id="@+id/textView"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:textSize="14sp"
+app:layout_constraintStart_toStartOf="@+id/button"
+app:layout_constraintEnd_toEndOf="@+id/button"
+app:layout_constraintTop_toBottomOf="@+id/button"
+android:layout_marginTop="30dp"/>
+</android.support.constraint.ConstraintLayout>
+
+
+
+MainActivity.java
+
+
+
+package com.example.pratical14;
+import android.annotation.SuppressLint;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+public class MainActivity extends AppCompatActivity {
+EditText string;
+TextView result;
+Button button;
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+super.onCreate(savedInstanceState);
+setContentView(R.layout.activity_main);
+string = findViewById(R.id.string);
+result = findViewById(R.id.textView);
+button = findViewById(R.id.button);
+button.setOnClickListener(view -> {
+String stringValue = string.getText().toString();
+checkPalindrome(stringValue);
+});
+}
+@SuppressLint("SetTextI18n")
+private void checkPalindrome(String stringValue) {
+String reversed = new
+StringBuilder(stringValue).reverse().toString();
+if(stringValue.equals(reversed))
+{
+result.setText("Palindrome");
+}
+else
+{
+result.setText("Not Palindrome");
+}
+}
+}

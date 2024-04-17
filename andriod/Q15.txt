@@ -1,0 +1,334 @@
+15 Create Following Table: Emp (emp_no,emp_name,address,phone,salary) Dept (dept_no,dept_name,location) Emp-Dept is related with one-many relationship. Create application for performing the following Operation on the table 1) Add Records into Emp and Dept table. 2) Accept Department name from User and delete employee information which belongs to that department. 
+
+Activity_main.xml
+
+
+
+<?xml version="1.0" encoding="utf-8"?>
+<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="match_parent">
+<TextView
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:layout_x="50dp"
+android:layout_y="20dp"
+android:text="emp Details"
+android:textSize="30sp" />
+<TextView
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:layout_x="20dp"
+android:layout_y="110dp"
+android:text="emp_no:"
+android:textSize="20sp" />
+<EditText
+android:id="@+id/Rollno"
+android:layout_width="150dp"
+android:layout_height="wrap_content"
+android:layout_x="175dp"
+android:layout_y="100dp"
+android:inputType="number"
+android:textSize="20sp" />
+<TextView
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:layout_x="20dp"
+android:layout_y="160dp"
+android:text="emp_name:"
+android:textSize="20sp" />
+<EditText
+android:id="@+id/Name"
+android:layout_width="150dp"
+android:layout_height="wrap_content"
+android:layout_x="175dp"
+android:layout_y="150dp"
+android:inputType="text"
+android:textSize="20sp" />
+<TextView
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:layout_x="20dp"
+android:layout_y="210dp"
+android:text="e_location:"
+android:textSize="20sp" />
+<EditText
+android:id="@+id/e_location"
+android:layout_width="150dp"
+android:layout_height="wrap_content"
+android:layout_x="175dp"
+android:layout_y="200dp"
+android:inputType="text"
+android:textSize="20sp" />
+<TextView
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:layout_x="50dp"
+android:layout_y="20dp"
+android:text="emp Details"
+android:textSize="30sp" />
+<TextView
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:layout_x="20dp"
+android:layout_y="110dp"
+android:text="emp_no:"
+android:textSize="20sp" />
+<EditText
+android:id="@+id/emp_no"
+android:layout_width="150dp"
+android:layout_height="wrap_content"
+android:layout_x="175dp"
+android:layout_y="100dp"
+android:inputType="number"
+android:textSize="20sp" />
+<TextView
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:layout_x="20dp"
+android:layout_y="160dp"
+android:text="emp_name:"
+android:textSize="20sp" />
+<EditText
+android:id="@+id/emp_name"
+android:layout_width="150dp"
+android:layout_height="wrap_content"
+android:layout_x="175dp"
+android:layout_y="150dp"
+android:inputType="text"
+android:textSize="20sp" />
+<TextView
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:layout_x="28dp"
+android:layout_y="424dp"
+android:text="location:"
+android:textSize="20sp" />
+<EditText
+android:id="@+id/location"
+android:layout_width="150dp"
+android:layout_height="wrap_content"
+android:layout_x="162dp"
+android:layout_y="417dp"
+android:inputType="text"
+android:textSize="20sp" />
+<Button
+android:id="@+id/Insert"
+android:layout_width="150dp"
+android:layout_height="wrap_content"
+android:layout_x="45dp"
+android:layout_y="477dp"
+android:text="Insert"
+android:textSize="30dp" />
+<Button
+android:id="@+id/Delete"
+android:layout_width="150dp"
+android:layout_height="wrap_content"
+android:layout_x="216dp"
+android:layout_y="475dp"
+android:text="Delete"
+android:textSize="30dp" />
+<Button
+android:id="@+id/ViewAll"
+android:layout_width="200dp"
+android:layout_height="wrap_content"
+android:layout_x="114dp"
+android:layout_y="552dp"
+android:text="View All"
+android:textSize="30dp" />
+<TextView
+android:id="@+id/textView"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:layout_x="50dp"
+android:layout_y="265dp"
+android:text="dept Detail"
+android:textSize="30sp"/>
+<TextView
+android:id="@+id/textView3"
+android:layout_width="103dp"
+android:layout_height="wrap_content"
+android:layout_x="24dp"
+android:layout_y="321dp"
+android:text="dept_no"
+android:textSize="20sp" />
+<EditText
+android:id="@+id/dept_no"
+android:layout_width="150dp"
+android:layout_height="wrap_content"
+android:layout_x="158dp"
+android:layout_y="312dp"
+android:inputType="number"
+android:textSize="20sp" />
+<TextView
+android:id="@+id/textView31"
+android:layout_width="105dp"
+android:layout_height="wrap_content"
+android:layout_x="14dp"
+android:layout_y="371dp"
+android:text="dept_name"
+android:textSize="20sp" />
+<EditText
+android:id="@+id/dept_name"
+android:layout_width="150dp"
+android:layout_height="wrap_content"
+android:layout_x="159dp"
+android:layout_y="366dp"
+android:inputType="text"
+android:textSize="20sp" />
+</AbsoluteLayout>
+
+
+
+MainActivity.java
+
+
+
+package com.example.practical15;
+import android.app.Activity;
+import android.app.AlertDialog.Builder;
+import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.EditText;
+public class MainActivity extends Activity implements OnClickListener {
+EditText emp_no, emp_name, e_location,dept_no,dept_name,location;
+Button Insert, Delete, ViewAll;
+SQLiteDatabase db;
+/**
+* Called when the activity is first created.
+*/
+@Override
+public void onCreate(Bundle savedInstanceState) {
+super.onCreate(savedInstanceState);
+setContentView(R.layout.activity_main);
+emp_no = (EditText) findViewById(R.id.emp_no);
+emp_name = (EditText) findViewById(R.id.emp_name);
+e_location = (EditText) findViewById(R.id.e_location);
+dept_no = (EditText) findViewById(R.id.dept_no);
+dept_name = (EditText) findViewById(R.id.dept_name);
+location = (EditText) findViewById(R.id.location);
+Insert = (Button) findViewById(R.id.Insert);
+Delete = (Button) findViewById(R.id.Delete);
+ViewAll = (Button) findViewById(R.id.ViewAll);
+Insert.setOnClickListener(this);
+Delete.setOnClickListener(this);
+ViewAll.setOnClickListener(this);
+// Creating database and table
+db = openOrCreateDatabase("empDB", Context.MODE_PRIVATE, null);
+db.execSQL("CREATE TABLE IF NOT EXISTS emp(emp_no VARCHAR,emp_name
+VARCHAR,e_location VARCHAR,dept_no VARCHAR,dept_name VARCHAR,location
+VARCHAR);");
+}
+public void onClick(View view) {
+// Inserting a record to the Student table
+if (view == Insert) {
+// Checking for empty fields
+if (emp_no.getText().toString().trim().length() == 0 ||
+emp_name.getText().toString().trim().length() == 0 ||
+e_location.getText().toString().trim().length() == 0 ||
+dept_no.getText().toString().trim().length() == 0 ||
+dept_name.getText().toString().trim().length() == 0
+||
+location.getText().toString().trim().length() ==
+0 ){
+showMessage("Error", "Please enter all values");
+return;
+}
+db.execSQL("INSERT INTO emp VALUES('" + emp_no.getText() +
+"','" + emp_name.getText() +
+"','" + e_location.getText() + "');");
+showMessage("Success", "Record added");
+clearText();
+}
+// Deleting a record from the Student table
+if (view == Delete) {
+// Checking for empty roll number
+if (emp_no.getText().toString().trim().length() == 0) {
+showMessage("Error", "Please enter emp_no");
+return;
+}
+Cursor c = db.rawQuery("SELECT * FROM emp WHERE emp_no='" +
+emp_no.getText() + "'", null);
+if (c.moveToFirst()) {
+db.execSQL("DELETE FROM emp WHERE emp_no='" +
+emp_no.getText() + "'");
+showMessage("Success", "Record Deleted");
+} else {
+showMessage("Error", "Invalid emp_no");
+}
+clearText();
+}
+{
+// Checking for empty roll number
+if (emp_no.getText().toString().trim().length() == 0) {
+showMessage("Error", "Please enter emp_no");
+return;
+}
+Cursor c = db.rawQuery("SELECT * FROM emp WHERE rollno='" +
+emp_no.getText() + "'", null);
+if (c.moveToFirst()) {
+db.execSQL("UPDATE emp SET name='" + emp_name.getText() +
+"',marks='" + e_location.getText() +
+"' WHERE emp_no='" + emp_no.getText() + "'");
+showMessage("Success", "Record Modified");
+} else {
+showMessage("Error", "Invalid emp_no");
+}
+clearText();
+}
+// Display a record from the Student table
+{
+// Checking for empty roll number
+if (emp_no.getText().toString().trim().length() == 0) {
+showMessage("Error", "Please enter Rollno");
+return;
+}
+Cursor c = db.rawQuery("SELECT * FROM emp WHERE emp_no='" +
+emp_no.getText() + "'", null);
+if (c.moveToFirst()) {
+emp_name.setText(c.getString(1));
+e_location.setText(c.getString(2));
+} else {
+showMessage("Error", "Invalid emp_no");
+clearText();
+}
+}
+// Displaying all the records
+if (view == ViewAll) {
+Cursor c = db.rawQuery("SELECT * FROM emp", null);
+if (c.getCount() == 0) {
+showMessage("Error", "No records found");
+return;
+}
+StringBuffer buffer = new StringBuffer();
+while (c.moveToNext()) {
+buffer.append("emp_no: " + c.getString(0) + "\n");
+buffer.append("emp_name: " + c.getString(1) + "\n");
+buffer.append("e_location: " + c.getString(2) + "\n\n");
+}
+showMessage("emp Details", buffer.toString());
+}
+}
+public void showMessage(String title, String message) {
+Builder builder = new Builder(this);
+builder.setCancelable(true);
+builder.setTitle(title);
+builder.setMessage(message);
+builder.show();
+}
+public void clearText() {
+emp_no.setText("");
+emp_name.setText("");
+e_location.setText("");
+emp_no.requestFocus();
+dept_no.setText("");
+dept_name.setText("");
+location.setText("");
+dept_no.requestFocus();
+}
+}

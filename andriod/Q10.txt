@@ -1,0 +1,92 @@
+10 Create an Android application, where the user can enter player name and points in one view and display it in another view. 
+
+
+Activity_main.xml
+
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:orientation="vertical"
+>
+<EditText
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:hint="player name"
+android:id="@+id/message_text"
+/>
+<EditText
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:hint="player score"
+android:id="@+id/message_text1"
+/>
+<Button
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:layout_gravity="bottom"
+android:text="send"
+android:onClick="sendmessage"
+/>
+</LinearLayout>
+
+
+
+
+
+
+MainActivity.java
+
+
+1package com.example.pratical1010;
+import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.EditText;
+public class MainActivity extends AppCompatActivity {
+EditText message_text;
+EditText message_text1;
+public final static String MESSAGE_KEY = ".message_key";
+protected void onCreate(Bundle savedInstanceState) {
+super.onCreate(savedInstanceState);
+setContentView(R.layout.activity_main);
+}
+public void sendmessage(View view) {
+message_text = (EditText) findViewById(R.id.message_text);
+String message = message_text.getText().toString();
+Intent intent = new Intent(this, secondActivity.class);
+intent.putExtra(MESSAGE_KEY, message);
+startActivity(intent);
+}
+}
+2<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context=".secondActivity">
+</android.support.constraint.ConstraintLayout>
+2
+package com.example.pratical1010;
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.widget.TextView;
+public class secondActivity extends Activity {
+public final static String MESSAGE_KEY =".message_key";
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+super.onCreate(savedInstanceState);
+Intent intent = getIntent();
+String message = intent.getStringExtra(MESSAGE_KEY);
+TextView textView = new TextView(this);
+textView.setTextSize(45);
+textView.setText(message);
+}
+}

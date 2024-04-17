@@ -1,0 +1,144 @@
+17 Java Android Program to Change the Image Displayed on the Screen 
+
+Activity_main.xml
+
+
+
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context=".MainActivity" >
+<LinearLayout
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:orientation="horizontal"
+android:paddingBottom="40px"
+android:weightSum="2" >
+<RadioGroup
+android:id="@+id/rg1"
+android:layout_width="wrap_content"
+android:layout_height="match_parent"
+android:layout_weight="1"
+android:orientation="vertical" >
+<RadioButton
+android:id="@+id/radioButton1"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:layout_alignParentRight="true"
+android:layout_alignParentTop="true"
+android:layout_marginTop="20dp"
+android:text="Image2" />
+<RadioButton
+android:id="@+id/radioButton2"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:layout_alignBaseline="@+id/radioButton1"
+android:layout_alignBottom="@+id/radioButton1"
+android:layout_alignParentLeft="true"
+android:text="Image1" />
+</RadioGroup>
+<RadioGroup
+android:id="@+id/rg2"
+android:layout_width="wrap_content"
+android:layout_height="match_parent"
+android:layout_weight="1"
+android:orientation="vertical" >
+<RadioButton
+android:id="@+id/radioButton3"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:layout_marginTop="30dp"
+android:text="Image3" />
+<RadioButton
+android:id="@+id/radioButton4"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:layout_alignBaseline="@+id/radioButton3"
+android:layout_alignBottom="@+id/radioButton3"
+android:layout_alignParentRight="true"
+android:text="Image4" />
+</RadioGroup>
+</LinearLayout>
+<Button
+android:id="@+id/button1"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:layout_alignParentLeft="true"
+android:layout_alignParentRight="true"
+android:layout_centerVertical="true"
+android:text="Change Image" />
+<ImageView
+android:id="@+id/imageView1"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:layout_alignLeft="@+id/button1"
+android:layout_alignParentBottom="true"
+android:layout_alignParentRight="true"
+android:layout_below="@+id/button1"
+android:layout_marginTop="50dp"/>
+</RelativeLayout>
+
+
+
+MainActivity.java
+
+
+package com.example.pra18;
+import android.app.Activity;
+import android.graphics.Typeface;
+import android.os.Bundle;
+import android.renderscript.Type;
+import android.view.Gravity;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.RadioGroup;
+import android.widget.RadioGroup.OnCheckedChangeListener;
+import android.widget.TextView;
+public class MainActivity extends Activity implements
+OnCheckedChangeListener {
+RadioGroup group1, group2;
+Button gen;
+ImageView img;
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+// TODO Auto-generated method stub
+super.onCreate(savedInstanceState);
+setContentView(R.layout.activity_main);
+group1 = (RadioGroup) findViewById(R.id.rg1);
+group1.setOnCheckedChangeListener((OnCheckedChangeListener) this);
+group2 = (RadioGroup) findViewById(R.id.rg2);
+group2.setOnCheckedChangeListener((OnCheckedChangeListener) this);
+img = (ImageView) findViewById(R.id.imageView1);
+// oncheckedChanged function
+gen = (Button) findViewById(R.id.button1);
+gen.setOnClickListener(new View.OnClickListener() {
+@Override
+public void onClick(View v) {
+// TODO Auto-generated method stub
+}
+});
+}
+@Override
+public void onCheckedChanged(RadioGroup group, int checkedId) {
+// TODO Auto-generated method stub
+switch (checkedId) {
+case R.id.radioButton1:
+img.setImageResource(R.drawable.image4);
+break;
+case R.id.radioButton2:
+img.setImageResource(R.drawable.image5);
+break;
+case R.id.radioButton3:
+img.setImageResource(R.drawable.image6);
+break;
+case R.id.radioButton4:
+img.setImageResource(R.drawable.image7);
+break;
+default:
+break;
+}
+} }
